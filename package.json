@@ -1,0 +1,15 @@
+{
+  "name": "monads",
+  "version": "1.0.0",
+  "description": "Typescript Monads inspired by Rust",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RustyNova",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "typescript": "^5.0.4"
+  }
+}
