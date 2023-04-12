@@ -1,12 +1,16 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
 
+/** Represent an optional value */
 export interface Option<T> {
     /** Returns true if the option is a None value.*/
     isNone(): boolean;
 
     /** Returns true if the option is a Some value. */
     isSome(): boolean;
+
+    /** Apply a transformation function to the value if it isn't None */
+    map<U>(fn: (someVal: T) => U): Option<U>;
 
     /** Returns the option if it contains a value, otherwise returns opt
      *
@@ -23,12 +27,17 @@ export interface Option<T> {
 
     /** Returns the contained Some value or a provided default. */
     unwrapOr(defaultValue: T): T;
+
+    /** Returns the value or get the value from the passed function */
+    unwrapOrElse(fn: () => T): T;
 }
 
+/** Return an Option value. */
 export function Some<T>(value: T | undefined): Option<T> {
     return typeof value !== "undefined" ?
         new OptionSome(value) :
         new OptionNone();
 }
 
-export const None = new OptionNone();
+/** Return a Optional value as None */
+export const None = new OptionNone<any>();

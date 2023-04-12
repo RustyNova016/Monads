@@ -1,4 +1,4 @@
-import {Option} from "./option";
+import {None, Option} from "./option";
 
 export class OptionNone<T> implements Option<T> {
     public isNone(): boolean {
@@ -7,6 +7,10 @@ export class OptionNone<T> implements Option<T> {
 
     public isSome(): boolean {
         return false;
+    }
+
+    public map<U>(fn: (someVal: T) => U): Option<U> {
+        return None;
     }
 
     public or<U>(opt: Option<U>): Option<T | U> {
@@ -23,5 +27,9 @@ export class OptionNone<T> implements Option<T> {
 
     public unwrapOr(defaultValue: T): T {
         return defaultValue;
+    }
+
+    public unwrapOrElse(fn: () => T): T {
+        return fn();
     }
 }

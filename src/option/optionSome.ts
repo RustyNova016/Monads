@@ -1,4 +1,4 @@
-import {Option} from "./option";
+import {Option, Some} from "./option";
 
 export class OptionSome<T> implements Option<T> {
     private value: T;
@@ -15,6 +15,10 @@ export class OptionSome<T> implements Option<T> {
         return true;
     }
 
+    public map<U>(fn: (someVal: T) => U): Option<U> {
+        return Some(fn(this.value));
+    }
+
     public or<U>(): Option<T | U> {
         return this;
     }
@@ -28,6 +32,10 @@ export class OptionSome<T> implements Option<T> {
     }
 
     public unwrapOr(): T {
+        return this.value;
+    }
+
+    public unwrapOrElse(): T {
         return this.value;
     }
 }
