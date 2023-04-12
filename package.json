@@ -8,6 +8,9 @@
     "lint": "eslint src/**",
     "lint&fix": "eslint src/** --fix"
   },
+  "files": [
+    "lib"
+  ],
   "author": "RustyNova",
   "license": "ISC",
   "devDependencies": {
@@ -16,5 +19,14 @@
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "prettier": "^2.8.6"
-  }
+  },
+  "keywords": [
+    "monads",
+    "option",
+    "javascript",
+    "js",
+    "typescript",
+    "node",
+    "node.js"
+  ]
 }
