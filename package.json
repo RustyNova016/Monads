@@ -1,15 +1,20 @@
 {
-  "name": "monads",
-  "version": "1.0.0",
+  "name": "@rustynova/monads",
+  "version": "0.0.2",
   "description": "Typescript Monads inspired by Rust",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "lint": "eslint src/**",
+    "lint&fix": "eslint src/** --fix"
   },
   "author": "RustyNova",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.38.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "prettier": "^2.8.6"
   }
 }

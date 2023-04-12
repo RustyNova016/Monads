@@ -15,11 +15,11 @@ export class OptionSome<T> implements Option<T> {
         return true;
     }
 
-    public or<U>(opt: Option<U>): Option<T | U> {
+    public or<U>(): Option<T | U> {
         return this;
     }
 
-    public orElse<U>(optFn: () => Option<U>): Option<T | U> {
+    public orElse<U>(): Option<T | U> {
         return this;
     }
 
@@ -27,7 +27,7 @@ export class OptionSome<T> implements Option<T> {
         return this.value;
     }
 
-    public unwrapOr(defaultValue: T): T {
+    public unwrapOr(): T {
         return this.value;
     }
 }

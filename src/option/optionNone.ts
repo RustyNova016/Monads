@@ -18,7 +18,7 @@ export class OptionNone<T> implements Option<T> {
     }
 
     public unwrap(): T {
-        throw new ReferenceError('Trying to unwrap None.');
+        throw new ReferenceError("Trying to unwrap None.");
     }
 
     public unwrapOr(defaultValue: T): T {

@@ -26,9 +26,9 @@ export interface Option<T> {
 }
 
 export function Some<T>(value: T | undefined): Option<T> {
-    return typeof value !== 'undefined' ?
+    return typeof value !== "undefined" ?
         new OptionSome(value) :
-        new OptionNone()
+        new OptionNone();
 }
 
-export const None = new OptionNone()
+export const None = new OptionNone();
