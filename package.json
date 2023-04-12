@@ -28,5 +28,7 @@
     "typescript",
     "node",
     "node.js"
-  ]
+  ],
+  "homepage": "https://github.com/RustyNova016/Monads.git",
+  "bugs": "https://github.com/RustyNova016/Monads/issues"
 }
