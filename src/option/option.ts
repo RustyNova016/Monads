@@ -3,6 +3,9 @@ import {OptionNone} from "./optionNone";
 
 /** Represent an optional value */
 export interface Option<T> {
+    /** Converts from Option<Option<T>> to Option<T>. */
+    flatten(): Option<T>;
+
     /** Returns true if the option is a None value.*/
     isNone(): boolean;
 
@@ -30,9 +33,6 @@ export interface Option<T> {
 
     /** Returns the value or get the value from the passed function */
     unwrapOrElse(fn: () => T): T;
-
-    /** Converts from Option<Option<T>> to Option<T>. */
-    flatten(): Option<T>
 }
 
 /** Return an Option value. */

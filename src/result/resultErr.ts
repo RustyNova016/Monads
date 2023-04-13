@@ -1,4 +1,4 @@
-import {Result} from "./result";
+import {Match, Result} from "./result";
 
 export class ResultErr<T, E> implements Result<T, E> {
     private error: E;
@@ -13,6 +13,10 @@ export class ResultErr<T, E> implements Result<T, E> {
 
     public isOk(): boolean {
         return false;
+    }
+
+    public match<U, F>(fn: Match<T, E, U, F>): F {
+        return fn.err(this.error);
     }
 
     public unwrap(): never {

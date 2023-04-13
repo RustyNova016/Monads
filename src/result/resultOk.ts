@@ -1,4 +1,4 @@
-import {Result} from "./result";
+import {Match, Result} from "./result";
 
 export class ResultOk<T, E = never> implements Result<T, E> {
     private value: T;
@@ -13,6 +13,10 @@ export class ResultOk<T, E = never> implements Result<T, E> {
 
     public isOk(): boolean {
         return true;
+    }
+
+    public match<U, F>(fn: Match<T, E, U, F>): U | F {
+        return fn.ok(this.value);
     }
 
     public unwrap(): T {
