@@ -1,12 +1,19 @@
 import {ResultOk} from "./resultOk";
 import {ResultErr} from "./resultErr";
 
+export interface Match<T, E, U, F> {
+    err: (err: E) => F;
+    ok: (val: T) => U;
+}
+
 export interface Result<T, E> {
     /** Return true if the value is Err */
     isErr(): boolean;
 
     /** Return true if the value is Ok */
     isOk(): boolean;
+
+    match<U, F>(fn: Match<T, E, U, F>): U | F;
 
     /** Unwrap the value and throw on error */
     unwrap(): T | never;
