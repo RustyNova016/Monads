@@ -1,24 +1,27 @@
 {
   "name": "@rustynova/monads",
-  "version": "0.0.5",
+  "version": "0.1.1",
   "description": "Typescript Monads inspired by Rust",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**",
-    "lint&fix": "eslint src/** --fix"
+    "lint&fix": "eslint src/** --fix",
+    "release": "release-it"
   },
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "author": "RustyNova",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.38.0",
-    "typescript": "^5.0.4",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
-    "prettier": "^2.8.6"
+    "eslint": "^8.38.0",
+    "prettier": "^2.8.6",
+    "release-it": "^15.10.1",
+    "typescript": "^5.0.4"
   },
   "repository": {
     "type": "git",
@@ -34,5 +37,8 @@
     "node.js"
   ],
   "homepage": "https://github.com/RustyNova016/Monads.git",
-  "bugs": "https://github.com/RustyNova016/Monads/issues"
+  "bugs": "https://github.com/RustyNova016/Monads/issues",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
 }
