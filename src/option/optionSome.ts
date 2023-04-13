@@ -38,4 +38,11 @@ export class OptionSome<T> implements Option<T> {
     public unwrapOrElse(): T {
         return this.value;
     }
+
+    public flatten(): Option<T> {
+        if(this.value instanceof OptionSome){
+            return this.value
+        }
+        return Some(this.value)
+    }
 }

@@ -30,6 +30,9 @@ export interface Option<T> {
 
     /** Returns the value or get the value from the passed function */
     unwrapOrElse(fn: () => T): T;
+
+    /** Converts from Option<Option<T>> to Option<T>. */
+    flatten(): Option<T>
 }
 
 /** Return an Option value. */

@@ -32,4 +32,8 @@ export class OptionNone<T> implements Option<T> {
     public unwrapOrElse(fn: () => T): T {
         return fn();
     }
+
+    public flatten(): Option<T> {
+        return None
+    }
 }
