@@ -10,7 +10,8 @@
     "release": "release-it"
   },
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "author": "RustyNova",
   "license": "ISC",
