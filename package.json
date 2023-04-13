@@ -1,6 +1,6 @@
 {
   "name": "@rustynova/monads",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Typescript Monads inspired by Rust",
   "main": "lib/index.js",
   "scripts": {
