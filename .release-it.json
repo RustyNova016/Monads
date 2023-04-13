@@ -1,0 +1,18 @@
+{
+  "git": {
+    "requireBranch": "master",
+    "commitMessage": "Chore: Release v${version}"
+  },
+  "hooks": {
+    "before:init": ["git pull", "yarn run build"],
+    "after:bump": "npx auto-changelog -p"
+  },
+  "npm": {
+    "release": true,
+    "publish": true
+  },
+  "github": {
+    "release": true,
+    "publish": true
+  }
+}
