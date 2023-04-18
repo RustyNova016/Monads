@@ -48,4 +48,10 @@ export class OptionSome<T> implements Option<T> {
         }
         return Some(this.value)
     }
+
+    /** Return the value
+     * Alias of unwrap() when it is known that this is OptionSome
+     */
+    public get() {
+        return this.unwrap()
 }
