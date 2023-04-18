@@ -1,4 +1,5 @@
 import {Match, Result} from "./result";
+import {ResultOk} from "./resultOk";
 
 export class ResultErr<T, E> implements Result<T, E> {
     private error: E;
@@ -7,11 +8,11 @@ export class ResultErr<T, E> implements Result<T, E> {
         this.error = error;
     }
 
-    public isErr(): boolean {
+    public isErr(): this is ResultErr<T, E> {
         return true;
     }
 
-    public isOk(): boolean {
+    public isOk(): this is ResultOk<T, E> {
         return false;
     }
 
@@ -21,6 +22,10 @@ export class ResultErr<T, E> implements Result<T, E> {
 
     public unwrap(): never {
         throw this.error;
+    }
+
+    public unwrapErr(): E {
+        return this.error;
     }
 
     public unwrapOr(defaultValue: T): T {

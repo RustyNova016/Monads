@@ -8,15 +8,18 @@ export interface Match<T, E, U, F> {
 
 export interface Result<T, E> {
     /** Return true if the value is Err */
-    isErr(): boolean;
+    isErr(): this is ResultErr<T, E>;
 
     /** Return true if the value is Ok */
-    isOk(): boolean;
+    isOk(): this is ResultOk<T, E>;
 
     match<U, F>(fn: Match<T, E, U, F>): U | F;
 
     /** Unwrap the value and throw on error */
     unwrap(): T | never;
+
+    /** Returns the contained error. Throw on Ok */
+    unwrapErr(): E | never;
 
     /** Returns the contained Ok value or a provided default. */
     unwrapOr(defaultValue: T): T;
