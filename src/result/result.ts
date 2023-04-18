@@ -14,11 +14,17 @@ export interface Result<T, E> extends Unwrapable<T> {
     /** Return res if the result is Ok, otherwise returns any Err value*/
     andPreserved<U>(res: Result<U, E>): Result<T, E>;
 
+    /** Call a function with the contained value (if Ok) */
+    inspect(fn: (val: T) => void): Result<T, E>;
+
     /** Return true if the value is Err */
     isErr(): this is ResultErr<E>;
 
     /** Return true if the value is Ok */
     isOk(): this is ResultOk<T>;
+
+    /** Maps a Result<T, E> to Result<U, E> by applying a function to a contained Ok value, leaving an Err value untouched. */
+    map<U>(fn: (val: T) => U): Result<U, E>;
 
     match<U, F>(fn: Match<T, E, U, F>): U | F;
 
