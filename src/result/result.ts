@@ -23,7 +23,7 @@ export interface Result<T, E> extends Unwrapable<T> {
     /** Return true if the value is Ok */
     isOk(): this is ResultOk<T>;
 
-    /** Maps a Result<T, E> to Result<U, E> by applying a function to a contained Ok value, leaving an Err value untouched. */
+    /** Maps a Result to another by applying a function to a contained Ok value, leaving an Err value untouched. */
     map<U>(fn: (val: T) => U): Result<U, E>;
 
     match<U, F>(fn: Match<T, E, U, F>): U | F;
