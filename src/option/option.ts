@@ -1,8 +1,9 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
+import {Unwrapable} from "../unwrapable";
 
 /** Represent an optional value */
-export interface Option<T> {
+export interface Option<T> extends Unwrapable<T>{
     /** Converts from Option<Option<T>> to Option<T>. */
     flatten(): Option<T>;
 

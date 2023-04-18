@@ -1,12 +1,13 @@
 import {ResultOk} from "./resultOk";
 import {ResultErr} from "./resultErr";
+import {Unwrapable} from "../unwrapable";
 
 export interface Match<T, E, U, F> {
     err: (err: E) => F;
     ok: (val: T) => U;
 }
 
-export interface Result<T, E> {
+export interface Result<T, E> extends Unwrapable<T> {
     /** Return res of the provided result if the result is Ok, otherwise returns any Err value*/
     and<U>(res: Result<U, E>): Result<U, E>;
 
