@@ -1,31 +1,47 @@
-import {Err, Match, Result} from "./result";
+import {Match, Result} from "./result";
 import {ResultOk} from "./resultOk";
 
-export class ResultErr<T, E> implements Result<T, E> {
+export class ResultErr<E> implements Result<never, E> {
     private error: E;
 
     constructor(error: E) {
         this.error = error;
     }
 
-    public and<U>(res: Result<U, E>): Result<U, E> {
-        return Err<U, E>(this.unwrapErr())
-    }
-
-    public andPreserved<U>(res: Result<U, E>): ResultErr<T, E> {
+    public and<T, U>(res: Result<U, E>): Result<U, E> {
         return this;
     }
 
-    public isErr(): this is ResultErr<T, E> {
+    public andPreserved<U>(res: Result<U, E>): ResultErr<E> {
+        return this;
+    }
+
+    public isErr(): this is ResultErr<E> {
         return true;
     }
 
-    public isOk(): this is ResultOk<T, E> {
+    public isOk<T>(): this is ResultOk<T> {
         return false;
     }
 
-    public match<U, F>(fn: Match<T, E, U, F>): F {
+    public match<T, U, F>(fn: Match<T, E, U, F>): F {
         return fn.err(this.error);
+    }
+
+    public replaceOk(): ResultErr<E> {
+        return this;
+    }
+
+    public replaceOkThen(): ResultErr<E> {
+        return this;
+    }
+
+    /** Throw the error
+     *
+     * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
+     */
+    public throwErr(): never {
+        this.unwrap();
     }
 
     public unwrap(): never {
@@ -36,19 +52,11 @@ export class ResultErr<T, E> implements Result<T, E> {
         return this.error;
     }
 
-    public unwrapOr(defaultValue: T): T {
+    public unwrapOr<T>(defaultValue: T): T {
         return defaultValue;
     }
 
-    public unwrapOrElse(fn: () => T): T {
+    public unwrapOrElse<T>(fn: () => T): T {
         return fn();
-    }
-
-    /** Throw the error
-     *
-     * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
-     */
-    public throwErr(): never {
-        this.unwrap()
     }
 }

@@ -8,18 +8,24 @@ export interface Match<T, E, U, F> {
 
 export interface Result<T, E> {
     /** Return res of the provided result if the result is Ok, otherwise returns any Err value*/
-    and<U>(res: Result<U, E>): Result<U, E>
+    and<U>(res: Result<U, E>): Result<U, E>;
 
     /** Return res if the result is Ok, otherwise returns any Err value*/
-    andPreserved<U>(res: Result<U, E>): Result<T, E>
+    andPreserved<U>(res: Result<U, E>): Result<T, E>;
 
     /** Return true if the value is Err */
-    isErr(): this is ResultErr<T, E>;
+    isErr(): this is ResultErr<E>;
 
     /** Return true if the value is Ok */
-    isOk(): this is ResultOk<T, E>;
+    isOk(): this is ResultOk<T>;
 
     match<U, F>(fn: Match<T, E, U, F>): U | F;
+
+    /** Replace the result value by another. If the result is an Err, then does nothing */
+    replaceOk<U>(val: U): Result<U, E>;
+
+    /** Replace the result value by another. If the result is an Err, then does nothing */
+    replaceOkThen<U>(fn: (val: T) => U): Result<U, E>;
 
     /** Unwrap the value and throw on error */
     unwrap(): T | never;
@@ -34,10 +40,10 @@ export interface Result<T, E> {
     unwrapOrElse(fn: () => T): T;
 }
 
-export function Ok<T>(value: T): ResultOk<T, never> {
-    return new ResultOk<T, never>(value);
+export function Ok<T>(value: T): ResultOk<T> {
+    return new ResultOk<T>(value);
 }
 
-export function Err<T, E>(value: E): ResultErr<T, E> {
-    return new ResultErr<T, E>(value);
+export function Err<E>(value: E): ResultErr<E> {
+    return new ResultErr<E>(value);
 }
