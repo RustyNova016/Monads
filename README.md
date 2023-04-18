@@ -5,6 +5,8 @@ Spiritual successor to [@snyptt/monads](https://github.com/sniptt-official/monad
 
 Zero dependencies required
 
+[![@rustynova/monads](/advisor/npm-package/@rustynova/monads/badge.svg)](/advisor/npm-package/@rustynova/monads)
+
 > 🚨 This package is still in beta! ⚠
 
 ## Just give me the installation script already
