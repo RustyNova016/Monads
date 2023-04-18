@@ -8,7 +8,7 @@ export class ResultErr<E> implements Result<never, E> {
         this.error = error;
     }
 
-    public and<T, U>(res: Result<U, E>): Result<U, E> {
+    public and<T, U>(res: Result<U, E>): ResultErr<E> {
         return this;
     }
 
@@ -16,7 +16,7 @@ export class ResultErr<E> implements Result<never, E> {
         return this;
     }
 
-    public inspect(fn: (val: never) => void): Result<never, E> {
+    public inspect(fn: (val: never) => void): ResultErr<E> {
         return this;
     }
 
@@ -28,7 +28,7 @@ export class ResultErr<E> implements Result<never, E> {
         return false;
     }
 
-    public map<U>(fn: (val: never) => U): Result<U, E> {
+    public map<U>(fn: (val: never) => U): ResultErr<E> {
         return this;
     }
 

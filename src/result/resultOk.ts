@@ -4,15 +4,6 @@ import {ResultErr} from "./resultErr";
 export class ResultOk<T> implements Result<T, never> {
     private value: T;
 
-    public inspect(fn: (val: T) => void): Result<T, never> {
-        fn(this.value);
-        return this;
-    }
-
-    public map<U>(fn: (val: T) => U): Result<U, never> {
-        return Ok(fn(this.value));
-    }
-
     constructor(value: T) {
         this.value = value;
     }
@@ -25,12 +16,21 @@ export class ResultOk<T> implements Result<T, never> {
         return res.and(this);
     }
 
+    public inspect(fn: (val: T) => void): ResultOk<T> {
+        fn(this.value);
+        return this;
+    }
+
     public isErr<E>(): this is ResultErr<E> {
         return false;
     }
 
     public isOk(): this is ResultOk<T> {
         return true;
+    }
+
+    public map<U>(fn: (val: T) => U): ResultOk<U> {
+        return Ok(fn(this.value));
     }
 
     public match<E, U, F>(fn: Match<T, E, U, F>): U {
