@@ -1,11 +1,24 @@
 import {None, Option} from "./option";
+import {OptionSome} from "./optionSome";
 
 export class OptionNone<T> implements Option<T> {
-    public isNone(): boolean {
+    public flatten(): Option<T> {
+        return None;
+    }
+
+    public isNone(): this is OptionNone<T> {
         return true;
     }
 
-    public isSome(): boolean {
+    public isNoneOr(): true {
+        return true;
+    }
+
+    public isSome(): this is OptionSome<T> {
+        return false;
+    }
+
+    public isSomeAnd(): false {
         return false;
     }
 
@@ -31,9 +44,5 @@ export class OptionNone<T> implements Option<T> {
 
     public unwrapOrElse(fn: () => T): T {
         return fn();
-    }
-
-    public flatten(): Option<T> {
-        return None
     }
 }

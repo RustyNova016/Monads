@@ -7,10 +7,16 @@ export interface Option<T> {
     flatten(): Option<T>;
 
     /** Returns true if the option is a None value.*/
-    isNone(): boolean;
+    isNone(): this is OptionNone<T>;
+
+    /** Return true if the value is None, or match a predicate */
+    isNoneOr(fn: (val: T) => boolean): boolean;
 
     /** Returns true if the option is a Some value. */
-    isSome(): boolean;
+    isSome(): this is OptionSome<T>;
+
+    /** Return true if the value is Some and match a predicate */
+    isSomeAnd(fn: (val: T) => boolean): boolean;
 
     /** Apply a transformation function to the value if it isn't None */
     map<U>(fn: (someVal: T) => U): Option<U>;

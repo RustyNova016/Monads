@@ -1,4 +1,5 @@
 import {Option, Some} from "./option";
+import {OptionNone} from "./optionNone";
 
 export class OptionSome<T> implements Option<T> {
     private value: T;
@@ -7,12 +8,34 @@ export class OptionSome<T> implements Option<T> {
         this.value = value;
     }
 
-    public isNone(): boolean {
+    public flatten(): Option<T> {
+        if (this.value instanceof OptionSome) {
+            return this.value;
+        }
+        return Some(this.value);
+    }
+
+    /** Return the value
+     * Alias of unwrap() when it is known that this is OptionSome
+     */
+    public get() {
+        return this.unwrap();
+    }
+
+    public isNone(): this is OptionNone<T> {
         return false;
     }
 
-    public isSome(): boolean {
+    public isNoneOr(fn: (val: T) => boolean): boolean {
+        return fn(this.value);
+    }
+
+    public isSome(): this is OptionSome<T> {
         return true;
+    }
+
+    public isSomeAnd(fn: (val: T) => boolean): boolean {
+        return fn(this.value);
     }
 
     public map<U>(fn: (someVal: T) => U): Option<U> {
@@ -37,12 +60,5 @@ export class OptionSome<T> implements Option<T> {
 
     public unwrapOrElse(): T {
         return this.value;
-    }
-
-    public flatten(): Option<T> {
-        if(this.value instanceof OptionSome){
-            return this.value
-        }
-        return Some(this.value)
     }
 }
