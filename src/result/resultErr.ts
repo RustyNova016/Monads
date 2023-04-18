@@ -16,12 +16,20 @@ export class ResultErr<E> implements Result<never, E> {
         return this;
     }
 
+    public inspect(fn: (val: never) => void): Result<never, E> {
+        return this;
+    }
+
     public isErr(): this is ResultErr<E> {
         return true;
     }
 
     public isOk<T>(): this is ResultOk<T> {
         return false;
+    }
+
+    public map<U>(fn: (val: never) => U): Result<U, E> {
+        return this;
     }
 
     public match<T, U, F>(fn: Match<T, E, U, F>): F {

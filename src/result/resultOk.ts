@@ -4,6 +4,15 @@ import {ResultErr} from "./resultErr";
 export class ResultOk<T> implements Result<T, never> {
     private value: T;
 
+    public inspect(fn: (val: T) => void): Result<T, never> {
+        fn(this.value);
+        return this;
+    }
+
+    public map<U>(fn: (val: T) => U): Result<U, never> {
+        return Ok(fn(this.value));
+    }
+
     constructor(value: T) {
         this.value = value;
     }
