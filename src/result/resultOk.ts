@@ -1,4 +1,4 @@
-import {Match, Result} from "./result";
+import {Err, Match, Result} from "./result";
 import {ResultErr} from "./resultErr";
 
 export class ResultOk<T, E = never> implements Result<T, E> {
@@ -34,5 +34,13 @@ export class ResultOk<T, E = never> implements Result<T, E> {
 
     public unwrapOrElse(): T {
         return this.value;
+    }
+
+    public and<U>(res: Result<U, E>): Result<U, E> {
+        return res;
+    }
+
+    public andPreserved<U>(res: Result<U, E>): Result<T, E>{
+        return res.isErr()? Err<T, E>(res.unwrapErr()) : this
     }
 }
