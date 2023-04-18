@@ -35,4 +35,12 @@ export class ResultErr<T, E> implements Result<T, E> {
     public unwrapOrElse(fn: () => T): T {
         return fn();
     }
+
+    /** Throw the error
+     *
+     * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
+     */
+    public throwErr(): never {
+        this.unwrap()
+    }
 }
