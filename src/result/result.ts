@@ -7,6 +7,12 @@ export interface Match<T, E, U, F> {
 }
 
 export interface Result<T, E> {
+    /** Return res of the provided result if the result is Ok, otherwise returns any Err value*/
+    and<U>(res: Result<U, E>): Result<U, E>
+
+    /** Return res if the result is Ok, otherwise returns any Err value*/
+    andPreserved<U>(res: Result<U, E>): Result<T, E>
+
     /** Return true if the value is Err */
     isErr(): this is ResultErr<T, E>;
 

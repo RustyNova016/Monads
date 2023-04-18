@@ -1,4 +1,4 @@
-import {Match, Result} from "./result";
+import {Err, Match, Result} from "./result";
 import {ResultOk} from "./resultOk";
 
 export class ResultErr<T, E> implements Result<T, E> {
@@ -6,6 +6,14 @@ export class ResultErr<T, E> implements Result<T, E> {
 
     constructor(error: E) {
         this.error = error;
+    }
+
+    public and<U>(res: Result<U, E>): Result<U, E> {
+        return Err<U, E>(this.unwrapErr())
+    }
+
+    public andPreserved<U>(res: Result<U, E>): ResultErr<T, E> {
+        return this;
     }
 
     public isErr(): this is ResultErr<T, E> {
@@ -34,5 +42,13 @@ export class ResultErr<T, E> implements Result<T, E> {
 
     public unwrapOrElse(fn: () => T): T {
         return fn();
+    }
+
+    /** Throw the error
+     *
+     * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
+     */
+    public throwErr(): never {
+        this.unwrap()
     }
 }
