@@ -8,9 +8,11 @@ export interface Option<T> {
 
     /** Returns true if the option is a None value.*/
     isNone(): boolean;
+    isNone(): this is OptionNone<T>;
 
     /** Returns true if the option is a Some value. */
     isSome(): boolean;
+    isSome(): this is OptionSome<T>;
 
     /** Apply a transformation function to the value if it isn't None */
     map<U>(fn: (someVal: T) => U): Option<U>;

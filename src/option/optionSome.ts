@@ -1,4 +1,5 @@
 import {Option, Some} from "./option";
+import {OptionNone} from "./optionNone";
 
 export class OptionSome<T> implements Option<T> {
     private value: T;
@@ -8,10 +9,12 @@ export class OptionSome<T> implements Option<T> {
     }
 
     public isNone(): boolean {
+    public isNone(): this is OptionNone<T> {
         return false;
     }
 
     public isSome(): boolean {
+    public isSome(): this is OptionSome<T>  {
         return true;
     }
 
