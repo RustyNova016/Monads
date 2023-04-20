@@ -1,7 +1,7 @@
-import {Option, Some} from "./option";
+import {Option, OptionInterface, Some} from "./option";
 import {OptionNone} from "./optionNone";
 
-export class OptionSome<T> implements Option<T> {
+export class OptionSome<T> implements OptionInterface<T> {
     private value: T;
 
     constructor(value: T) {
@@ -18,11 +18,11 @@ export class OptionSome<T> implements Option<T> {
     /** Return the value
      * Alias of unwrap() when it is known that this is OptionSome
      */
-    public get() {
+    public get(): T {
         return this.unwrap();
     }
 
-    public isNone(): this is OptionNone<T> {
+    public isNone(): this is OptionNone {
         return false;
     }
 
