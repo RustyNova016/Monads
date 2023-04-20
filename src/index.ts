@@ -1,2 +1,2 @@
-export {Option, Some, None} from "./option/option";
-export {ResultInterface, Result, Err, Ok} from "./result/result";
+export {Option, OptionInterface, Some, None} from "./option/option";
+export {Result,ResultInterface, Err, Ok} from "./result/result";

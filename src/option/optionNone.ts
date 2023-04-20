@@ -1,12 +1,12 @@
-import {None, Option} from "./option";
+import {None, Option, OptionInterface} from "./option";
 import {OptionSome} from "./optionSome";
 
-export class OptionNone<T> implements Option<T> {
-    public flatten(): Option<T> {
+export class OptionNone implements OptionInterface<never> {
+    public flatten(): OptionNone {
         return None;
     }
 
-    public isNone(): this is OptionNone<T> {
+    public isNone(): this is OptionNone {
         return true;
     }
 
@@ -14,7 +14,7 @@ export class OptionNone<T> implements Option<T> {
         return true;
     }
 
-    public isSome(): this is OptionSome<T> {
+    public isSome<T>(): this is OptionSome<T> {
         return false;
     }
 
@@ -22,27 +22,27 @@ export class OptionNone<T> implements Option<T> {
         return false;
     }
 
-    public map<U>(fn: (someVal: T) => U): Option<U> {
+    public map<T, U>(fn: (someVal: T) => U): OptionNone {
         return None;
     }
 
-    public or<U>(opt: Option<U>): Option<T | U> {
+    public or<T, U>(opt: Option<U>): Option<U> {
         return opt;
     }
 
-    public orElse<U>(optFn: () => Option<U>): Option<T | U> {
+    public orElse<T, U>(optFn: () => Option<U>): Option<U> {
         return optFn();
     }
 
-    public unwrap(): T {
+    public unwrap(): never {
         throw new ReferenceError("Trying to unwrap None.");
     }
 
-    public unwrapOr(defaultValue: T): T {
+    public unwrapOr<T>(defaultValue: T): T {
         return defaultValue;
     }
 
-    public unwrapOrElse(fn: () => T): T {
+    public unwrapOrElse<T>(fn: () => T): T {
         return fn();
     }
 }
