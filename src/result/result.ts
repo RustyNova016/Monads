@@ -7,7 +7,11 @@ export interface Match<T, E, U, F> {
     ok: (val: T) => U;
 }
 
-export interface Result<T, E> extends Unwrapable<T> {
+/** The result type. Can be either a correct result (Ok) or an unexpected error (Err) */
+export type Result<T, E> = ResultOk<T> | ResultErr<E>
+
+/** Methods that Results must expand */
+export interface ResultInterface<T, E> {
     /** Return res of the provided result if the result is Ok, otherwise returns any Err value*/
     and<U>(res: Result<U, E>): Result<U, E>;
 

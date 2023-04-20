@@ -1,7 +1,7 @@
-import {Match, Result} from "./result";
+import {Match, Result, ResultInterface} from "./result";
 import {ResultOk} from "./resultOk";
 
-export class ResultErr<E> implements Result<never, E> {
+export class ResultErr<E> implements ResultInterface<never, E> {
     private error: E;
 
     constructor(error: E) {
