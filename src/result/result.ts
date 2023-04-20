@@ -1,5 +1,6 @@
 import {ResultOk} from "./resultOk";
 import {ResultErr} from "./resultErr";
+import {Unwrapable} from "../unwrapable";
 
 export interface Match<T, E, U, F> {
     err: (err: E) => F;
