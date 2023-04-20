@@ -1,5 +1,6 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
+import {Unwrapable} from "../unwrapable";
 
 export type Option<T> = OptionSome<T> | OptionNone
 

@@ -1,33 +1,70 @@
 import {Match, Result} from "./result";
+import {ResultOk} from "./resultOk";
 
-export class ResultErr<T, E> implements Result<T, E> {
+export class ResultErr<E> implements Result<never, E> {
     private error: E;
 
     constructor(error: E) {
         this.error = error;
     }
 
-    public isErr(): boolean {
+    public and<T, U>(res: Result<U, E>): ResultErr<E> {
+        return this;
+    }
+
+    public andPreserved<U>(res: Result<U, E>): ResultErr<E> {
+        return this;
+    }
+
+    public inspect(fn: (val: never) => void): ResultErr<E> {
+        return this;
+    }
+
+    public isErr(): this is ResultErr<E> {
         return true;
     }
 
-    public isOk(): boolean {
+    public isOk<T>(): this is ResultOk<T> {
         return false;
     }
 
-    public match<U, F>(fn: Match<T, E, U, F>): F {
+    public map<U>(fn: (val: never) => U): ResultErr<E> {
+        return this;
+    }
+
+    public match<T, U, F>(fn: Match<T, E, U, F>): F {
         return fn.err(this.error);
+    }
+
+    public replaceOk(): ResultErr<E> {
+        return this;
+    }
+
+    public replaceOkThen(): ResultErr<E> {
+        return this;
+    }
+
+    /** Throw the error
+     *
+     * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
+     */
+    public throwErr(): never {
+        this.unwrap();
     }
 
     public unwrap(): never {
         throw this.error;
     }
 
-    public unwrapOr(defaultValue: T): T {
+    public unwrapErr(): E {
+        return this.error;
+    }
+
+    public unwrapOr<T>(defaultValue: T): T {
         return defaultValue;
     }
 
-    public unwrapOrElse(fn: () => T): T {
+    public unwrapOrElse<T>(fn: () => T): T {
         return fn();
     }
 }
