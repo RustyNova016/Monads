@@ -1,7 +1,7 @@
-import {None, Option} from "./option";
+import {None, Option, OptionInterface} from "./option";
 import {OptionSome} from "./optionSome";
 
-export class OptionNone<T> implements Option<T> {
+export class OptionNone<T> implements OptionInterface<T> {
     public flatten(): Option<T> {
         return None;
     }

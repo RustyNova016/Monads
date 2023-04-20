@@ -1,7 +1,7 @@
-import {Option, Some} from "./option";
+import {Option, OptionInterface, Some} from "./option";
 import {OptionNone} from "./optionNone";
 
-export class OptionSome<T> implements Option<T> {
+export class OptionSome<T> implements OptionInterface<T> {
     private value: T;
 
     constructor(value: T) {

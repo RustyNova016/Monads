@@ -1,8 +1,10 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
 
+export type Option<T> = OptionSome<T> | OptionNone<T>
+
 /** Represent an optional value */
-export interface Option<T> {
+export interface OptionInterface<T> {
     /** Converts from Option<Option<T>> to Option<T>. */
     flatten(): Option<T>;
 
