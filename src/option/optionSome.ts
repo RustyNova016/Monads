@@ -18,11 +18,11 @@ export class OptionSome<T> implements OptionInterface<T> {
     /** Return the value
      * Alias of unwrap() when it is known that this is OptionSome
      */
-    public get() {
+    public get(): T {
         return this.unwrap();
     }
 
-    public isNone(): this is OptionNone<T> {
+    public isNone(): this is OptionNone {
         return false;
     }
 

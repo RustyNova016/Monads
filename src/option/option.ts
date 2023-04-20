@@ -1,7 +1,7 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
 
-export type Option<T> = OptionSome<T> | OptionNone<T>
+export type Option<T> = OptionSome<T> | OptionNone
 
 /** Represent an optional value */
 export interface OptionInterface<T> {
@@ -9,7 +9,7 @@ export interface OptionInterface<T> {
     flatten(): Option<T>;
 
     /** Returns true if the option is a None value.*/
-    isNone(): this is OptionNone<T>;
+    isNone(): this is OptionNone;
 
     /** Return true if the value is None, or match a predicate */
     isNoneOr(fn: (val: T) => boolean): boolean;
@@ -51,4 +51,4 @@ export function Some<T>(value: T | undefined): Option<T> {
 }
 
 /** Return a Optional value as None */
-export const None = new OptionNone<any>();
+export const None = new OptionNone();
