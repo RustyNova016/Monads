@@ -2,7 +2,7 @@ import {Match, Result, ResultInterface} from "./result";
 import {ResultOk} from "./resultOk";
 
 export class ResultErr<E> implements ResultInterface<never, E> {
-    private error: E;
+    private readonly error: E;
 
     constructor(error: E) {
         this.error = error;
@@ -13,6 +13,10 @@ export class ResultErr<E> implements ResultInterface<never, E> {
     }
 
     public andPreserved<U>(res: Result<U, E>): ResultErr<E> {
+        return this;
+    }
+
+    public andThen(): ResultErr<E>  {
         return this;
     }
 

@@ -1,6 +1,5 @@
 import {ResultOk} from "./resultOk";
 import {ResultErr} from "./resultErr";
-import {Unwrapable} from "../unwrapable";
 
 export interface Match<T, E, U, F> {
     err: (err: E) => F;
@@ -12,6 +11,9 @@ export type Result<T, E> = ResultOk<T> | ResultErr<E>
 
 /** Methods that Results must expand */
 export interface ResultInterface<T, E> {
+    /** Call the function if the result is Ok, else return Err of self */
+    andThen<U>(fn: (val: T) => Result<U, E>): Result<U, E>
+
     /** Return res of the provided result if the result is Ok, otherwise returns any Err value*/
     and<U>(res: Result<U, E>): Result<U, E>;
 
