@@ -1,5 +1,7 @@
 import {None, Option, OptionInterface} from "./option";
 import {OptionSome} from "./optionSome";
+import {Err} from "../result/result";
+import {ResultErr} from "../result/resultErr";
 
 export class OptionNone implements OptionInterface<never> {
     public flatten(): OptionNone {
@@ -22,8 +24,12 @@ export class OptionNone implements OptionInterface<never> {
         return false;
     }
 
-    public map<T, U>(fn: (someVal: T) => U): OptionNone {
+    public map(): OptionNone {
         return None;
+    }
+
+    public okOr<E>(err: E): ResultErr<E> {
+        return Err(err);
     }
 
     public or<T, U>(opt: Option<U>): Option<U> {

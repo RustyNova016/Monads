@@ -1,5 +1,7 @@
 import {Option, OptionInterface, Some} from "./option";
 import {OptionNone} from "./optionNone";
+import {Ok} from "../result/result";
+import {ResultOk} from "../result/resultOk";
 
 export class OptionSome<T> implements OptionInterface<T> {
     private value: T;
@@ -40,6 +42,10 @@ export class OptionSome<T> implements OptionInterface<T> {
 
     public map<U>(fn: (someVal: T) => U): Option<U> {
         return Some(fn(this.value));
+    }
+
+    public okOr(): ResultOk<T> {
+        return Ok(this.value);
     }
 
     public or<U>(): Option<T | U> {
