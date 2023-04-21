@@ -1,5 +1,6 @@
 import {OptionSome} from "./optionSome";
 import {OptionNone} from "./optionNone";
+import {Result} from "../result/result";
 
 export type Option<T> = OptionSome<T> | OptionNone
 
@@ -41,6 +42,9 @@ export interface OptionInterface<T> {
 
     /** Returns the value or get the value from the passed function */
     unwrapOrElse(fn: () => T): T;
+
+    /** Convert the option into a Result, with Some(T) -> Ok(T) and None -> Err(E) */
+    okOr<E>(err: E): Result<T, E>
 }
 
 /** Return an Option value. */
