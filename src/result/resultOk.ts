@@ -16,7 +16,7 @@ export class ResultOk<T> implements ResultInterface<T, never> {
         return res.and(this);
     }
 
-    public andThen<U, E>(fn: (val: T) => Result<U, never>): Result<U, E> {
+    public andThen<U, E>(fn: (val: T) => Result<U, E>): Result<U, E> {
         return fn(this.value);
     }
 
