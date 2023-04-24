@@ -9,6 +9,8 @@ export interface Match<T, E, U, F> {
 /** The result type. Can be either a correct result (Ok) or an unexpected error (Err) */
 export type Result<T, E> = ResultOk<T> | ResultErr<E>
 
+export type ResultSerialized<T, E> = { state: "ok", value: T} | { state: "err", value: E};
+
 /** Methods that Results must expand */
 export interface ResultInterface<T, E> {
     /** Call the function if the result is Ok, else return Err of self */
@@ -40,6 +42,9 @@ export interface ResultInterface<T, E> {
     /** Replace the result value by another. If the result is an Err, then does nothing */
     replaceOkThen<U>(fn: (val: T) => U): Result<U, E>;
 
+    /** Convert into a serialized result */
+    serialize(): ResultSerialized<T, E>;
+
     /** Unwrap the value and throw on error */
     unwrap(): T | never;
 
@@ -59,4 +64,14 @@ export function Ok<T>(value: T): ResultOk<T> {
 
 export function Err<E>(value: E): ResultErr<E> {
     return new ResultErr<E>(value);
+}
+
+/** Unserialize result */
+export function unserializeResult<T, E>(val: ResultSerialized<T, E>): Result<T, E> {
+    switch (val.state) {
+        case "ok":
+            return Ok(val.value);
+        case "err":
+            return Err(val.value);
+    }
 }

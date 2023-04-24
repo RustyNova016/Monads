@@ -1,8 +1,8 @@
-import {Match, Ok, Result, ResultInterface} from "./result";
+import {Match, Ok, Result, ResultInterface, ResultSerialized} from "./result";
 import {ResultErr} from "./resultErr";
 
 export class ResultOk<T> implements ResultInterface<T, never> {
-    private value: T;
+    private readonly value: T;
 
     constructor(value: T) {
         this.value = value;
@@ -47,6 +47,10 @@ export class ResultOk<T> implements ResultInterface<T, never> {
 
     public replaceOkThen<U>(fn: (val: T) => U): ResultOk<U> {
         return this.replaceOk(fn(this.value));
+    }
+
+    public serialize(): ResultSerialized<T, never> {
+        return {state: "ok", value: this.value};
     }
 
     public unwrap(): T {
