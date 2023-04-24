@@ -1,22 +1,24 @@
-import {Match, Result, ResultInterface} from "./result";
-import {ResultOk} from "./resultOk";
+import {ResultErrPrecise} from "../precise/resultErrPrecise";
+import {ResultOkPrecise} from "../precise/resultOkPrecise";
+import {Result, ResultInterface} from "./FuzzyResult";
+import {Match} from "../result";
 
 export class ResultErr<E> implements ResultInterface<never, E> {
-    private error: E;
+    private readonly error: E;
 
     constructor(error: E) {
         this.error = error;
     }
 
-    public and<T, U>(res: Result<U, E>): ResultErr<E> {
+    public and<T, U>(res: Result<U, E>): Result<U, E> {
         return this;
     }
 
-    public andPreserved<U>(res: Result<U, E>): ResultErr<E> {
+    public andPreserved<T, U>(res: Result<U, E>): Result<T, E> {
         return this;
     }
 
-    public inspect(fn: (val: never) => void): ResultErr<E> {
+    public inspect<T>(fn: (val: never) => void): Result<T, E> {
         return this;
     }
 
@@ -24,23 +26,23 @@ export class ResultErr<E> implements ResultInterface<never, E> {
         return true;
     }
 
-    public isOk<T>(): this is ResultOk<T> {
+    public isOk<T>(): this is ResultOkPrecise<T> {
         return false;
     }
 
-    public map<U>(fn: (val: never) => U): ResultErr<E> {
+    public map<U>(fn: (val: never) => U): Result<U, E> {
         return this;
     }
 
-    public match<T, U, F>(fn: Match<T, E, U, F>): F {
+    public match<T, U, F>(fn: Match<T, E, U, F>): U | F {
         return fn.err(this.error);
     }
 
-    public replaceOk(): ResultErr<E> {
+    public replaceOk<U>(): Result<U, E> {
         return this;
     }
 
-    public replaceOkThen(): ResultErr<E> {
+    public replaceOkThen<U>(): Result<U, E> {
         return this;
     }
 
@@ -48,15 +50,15 @@ export class ResultErr<E> implements ResultInterface<never, E> {
      *
      * Alias of this.unwrap(). This provides a more meaningful way to throw Errors when the Err state is known
      */
-    public throwErr(): never {
-        this.unwrap();
+    public throwErr<T>(): T | never {
+        return this.unwrap();
     }
 
-    public unwrap(): never {
+    public unwrap<T>(): never {
         throw this.error;
     }
 
-    public unwrapErr(): E {
+    public unwrapErr(): E | never {
         return this.error;
     }
 
