@@ -1,8 +1,8 @@
-import {Match, Result, ResultInterface} from "./result";
+import {Match, Result, ResultInterface, ResultSerialized} from "./result";
 import {ResultOk} from "./resultOk";
 
 export class ResultErr<E> implements ResultInterface<never, E> {
-    private error: E;
+    private readonly error: E;
 
     constructor(error: E) {
         this.error = error;
@@ -42,6 +42,10 @@ export class ResultErr<E> implements ResultInterface<never, E> {
 
     public replaceOkThen(): ResultErr<E> {
         return this;
+    }
+
+    public serialize(): ResultSerialized<never, E> {
+        return {state: "err", value: this.error};
     }
 
     /** Throw the error
