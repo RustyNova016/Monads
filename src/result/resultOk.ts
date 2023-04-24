@@ -8,6 +8,10 @@ export class ResultOk<T> implements ResultInterface<T, never> {
         this.value = value;
     }
 
+    public mapErr<F>(): Result<T, F> {
+        return this;
+    }
+
     public and<E, U>(res: Result<U, E>): Result<U, E> {
         return res;
     }

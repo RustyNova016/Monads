@@ -1,4 +1,4 @@
-import {Match, Result, ResultInterface, ResultSerialized} from "./result";
+import {Err, Match, Result, ResultInterface, ResultSerialized} from "./result";
 import {ResultOk} from "./resultOk";
 
 export class ResultErr<E> implements ResultInterface<never, E> {
@@ -6,6 +6,10 @@ export class ResultErr<E> implements ResultInterface<never, E> {
 
     constructor(error: E) {
         this.error = error;
+    }
+
+    public mapErr<F>(fn: (val: E) => F): Result<never, F> {
+        return Err(fn(this.error));
     }
 
     public and<T, U>(res: Result<U, E>): ResultErr<E> {

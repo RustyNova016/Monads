@@ -34,6 +34,8 @@ export interface ResultInterface<T, E> {
     /** Maps a Result to another by applying a function to a contained Ok value, leaving an Err value untouched. */
     map<U>(fn: (val: T) => U): Result<U, E>;
 
+    mapErr<F>(fn: (val: E) => F): Result<T, F>;
+
     match<U, F>(fn: Match<T, E, U, F>): U | F;
 
     /** Replace the result value by another. If the result is an Err, then does nothing */
