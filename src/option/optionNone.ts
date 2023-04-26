@@ -48,6 +48,10 @@ export class OptionNone implements OptionInterface<never> {
         return defaultValue;
     }
 
+    inspect(fn: (val: never) => void): Option<never> {
+        return this;
+    }
+
     public unwrapOrElse<T>(fn: () => T): T {
         return fn();
     }
