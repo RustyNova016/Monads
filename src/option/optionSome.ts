@@ -52,6 +52,11 @@ export class OptionSome<T> implements OptionInterface<T> {
         return this;
     }
 
+    public inspect(fn: (val: T) => void): Option<T> {
+        fn(this.value);
+        return this
+    }
+
     public orElse<U>(): Option<T | U> {
         return this;
     }

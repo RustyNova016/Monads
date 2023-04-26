@@ -45,6 +45,9 @@ export interface OptionInterface<T> {
 
     /** Convert the option into a Result, with Some(T) -> Ok(T) and None -> Err(E) */
     okOr<E>(err: E): Result<T, E>
+
+    /** Call a function with the contained value (if Some) */
+    inspect(fn: (val: T) => void): Option<T>;
 }
 
 /** Return an Option value. */
